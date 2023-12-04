@@ -37,18 +37,18 @@ const usePostFormData = (selectedPost, offcanvasRef, handleCloseModalAndUpdate) 
         }
     };
 
-    const prefillValuesOnEdit = () => {
-        editMode && setPostForm(fillPostForm(selectedPost));
-    };
-
+    
     useEffect(() => {
+        const prefillValuesOnEdit = () => {
+            editMode && setPostForm(fillPostForm(selectedPost));
+        };
         const offcanvas = offcanvasRef.current;
         offcanvas && offcanvas.addEventListener('show.bs.offcanvas', prefillValuesOnEdit);
 
         return () => {
             offcanvas.removeEventListener('show.bs.offcanvas', prefillValuesOnEdit);
         };
-    }, [offcanvasRef, editMode]);
+    }, [offcanvasRef, editMode, selectedPost]);
 
     const resetForm = () => {
         setPostForm(DEFAULT_POST_FORM);
