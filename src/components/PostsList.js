@@ -1,13 +1,15 @@
-import Post from "./Post";
+import Post from './Post';
 
 function PostsList({
   posts,
+  handleClick,
 }) {
   return (
-    <div class="container w-75 my-5">
-      {posts.length && posts.map((post, idx) => (
-        <Post post={post} key={idx} />
-      ))}
+    <div className='container w-75 my-5'>
+      {posts.length ? posts.map(post => (
+        <Post post={post} key={post.id} handleClick={handleClick} />
+      )):
+      <p className='fs-4'>No posts</p>}
     </div>
   );
 }

@@ -1,15 +1,28 @@
+import classNames from 'classnames';
+import cropPostContent from '../lib/cropPostContent';
+import formatDate from '../lib/formatDate';
+import styles from '../Post.module.css';
+
 function Post({
   post,
+  handleClick,
 }) {
   return (
-    <div class="card shadow-sm mb-3">
-      <div class="card-body">
-        <h4 class="card-title">{post.title}</h4>
-        <p class="card-subtitle mb-2 text-body-secondary">Posted on: {post.createdAt}</p>
-        <p class="card-text">
-          {post.body}
+    <div className='card shadow-sm mb-3'>
+      <div className='card-body'>
+        <h4 className='card-title'>{post.title}</h4>
+        <p className='card-subtitle mb-2 text-body-secondary'>Posted on: {formatDate(post.date)}</p>
+        <p className='card-subtitle mb-2 text-body-secondary'>{post.author}</p>
+        <p className={classNames('card-text', styles['post-preview'])}>
+          {cropPostContent(post.content)}
         </p>
-        <a href="#" class="link-secondary link-underline link-underline-opacity-0">Read more...</a>
+        <button 
+          className='btn btn-link link-secondary link-underline link-underline-opacity-0' 
+          type='button'
+          onClick={() => handleClick(post.id)}
+        >
+          Read more...
+        </button>
       </div>
     </div>
   );

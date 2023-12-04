@@ -7,6 +7,7 @@ function NewPostForm({
   handleSubmit,
   handleFieldChange,
   postFormError,
+  createPostError,
 }) {
 
   return (
@@ -14,39 +15,56 @@ function NewPostForm({
       noValidate
       onSubmit={(e) => handleSubmit(e)}
     >
-      <div class='mb-3'>
-        <label for='title' class='form-label'>
+      <div className='mb-3'>
+        <label for='title' className='form-label'>
           Title
         </label>
         <input
           type='text'
-          class='form-control'
+          className='form-control'
           id='title'
           required
           value={postForm[POST_FORM_FIELDS.TITLE]}
           onChange={(e) => handleFieldChange(POST_FORM_FIELDS.TITLE, e.target.value)}
         />
-        <div class='invalid-feedback'>
+        <div className='invalid-feedback'>
           Please provide Title.
         </div>
       </div>
-      <div class='mb-3'>
-        <label for='body' class='form-label'>
+      <div className='mb-3'>
+        <label for='body' className='form-label'>
           Body
         </label>
         <textarea
           rows='10'
-          class='form-control'
+          className='form-control'
           id='body'
           required
-          value={postForm[POST_FORM_FIELDS.BODY]}
-          onChange={(e) => handleFieldChange(POST_FORM_FIELDS.BODY, e.target.value)}
+          value={postForm[POST_FORM_FIELDS.CONTENT]}
+          onChange={(e) => handleFieldChange(POST_FORM_FIELDS.CONTENT, e.target.value)}
         />
-        <div class='invalid-feedback'>
+        <div className='invalid-feedback'>
           Please provide Body.
         </div>
       </div>
-      <button type='submit' class='btn btn-primary'>
+      <div className='mb-3'>
+        <label for='author' className='form-label'>
+          Author
+        </label>
+        <input
+          type='text'
+          className='form-control'
+          id='author'
+          required
+          value={postForm[POST_FORM_FIELDS.AUTHOR]}
+          onChange={(e) => handleFieldChange(POST_FORM_FIELDS.AUTHOR, e.target.value)}
+        />
+        <div className='invalid-feedback'>
+          Please provide Author name.
+        </div>
+      </div>
+      <p className='text-danger mb-3'>{createPostError}</p>
+      <button type='submit' className='btn btn-primary'>
         Submit
       </button>
     </form>
