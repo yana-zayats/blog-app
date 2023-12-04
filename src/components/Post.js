@@ -19,7 +19,7 @@ function Post({
         <button 
           className='btn btn-link link-secondary link-underline link-underline-opacity-0 px-0' 
           type='button'
-          onClick={() => handleClick(post.id)}
+          onClick={() => handleClick(post._id)}
         >
           Read more...
         </button>

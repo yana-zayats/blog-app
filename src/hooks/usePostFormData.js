@@ -25,7 +25,7 @@ const usePostFormData = (selectedPost, offcanvasRef, handleCloseModalAndUpdate) 
         }
         try {
             if (editMode) {
-                await http.put(`${POSTS_API}/${selectedPost.id}`, { data: postForm });
+                await http.put(`${POSTS_API}/${selectedPost._id}`, { data: postForm });
             } else {
                 await http.post(POSTS_API, { data: postForm });
             }
