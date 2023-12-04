@@ -16,7 +16,7 @@ function NewPostForm({
       onSubmit={(e) => handleSubmit(e)}
     >
       <div className='mb-3'>
-        <label for='title' className='form-label'>
+        <label htmlFor='title' className='form-label'>
           Title
         </label>
         <input
@@ -32,7 +32,7 @@ function NewPostForm({
         </div>
       </div>
       <div className='mb-3'>
-        <label for='body' className='form-label'>
+        <label htmlFor='body' className='form-label'>
           Body
         </label>
         <textarea
@@ -48,7 +48,7 @@ function NewPostForm({
         </div>
       </div>
       <div className='mb-3'>
-        <label for='author' className='form-label'>
+        <label htmlFor='author' className='form-label'>
           Author
         </label>
         <input

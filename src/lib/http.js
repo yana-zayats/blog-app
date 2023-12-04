@@ -12,10 +12,14 @@ const http = (url, { method = 'GET', data = undefined }) => {
 
 const get = (url, opts = {}) => http(url, { ...opts });
 const post = (url, opts = {}) => http(url, { method: 'POST', ...opts });
+const put = (url, opts = {}) => http(url, { method: 'PUT', ...opts });
+const deleteData = (url, opts = {}) => http(url, { method: 'DELETE', ...opts });
 
 const methods = {
   get,
   post,
+  put,
+  delete: deleteData,
 };
 
 export default methods;

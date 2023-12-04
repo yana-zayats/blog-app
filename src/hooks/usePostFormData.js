@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { DEFAULT_POST_FORM, POSTS_API } from '../constants';
-import { checkPostFormValid } from './usePostFormData.helper';
+import { checkPostFormValid, fillPostForm } from './usePostFormData.helper';
 import http from '../lib/http'
 
-const usePostFormData = (closeRef) => {
+const usePostFormData = (selectedPost, offcanvasRef, handleCloseModalAndUpdate) => {
     const [postForm, setPostForm] = useState(DEFAULT_POST_FORM);
     const [postFormError, setPostFormError] = useState(false);
     const [createPostError, setCreatePostError] = useState('');
+    const editMode = useMemo(() => !!selectedPost, [selectedPost]);
 
     const handleFieldChange = (field, value) => {
         setPostForm((prevState) => ({ 
@@ -23,13 +24,31 @@ const usePostFormData = (closeRef) => {
             return;
         }
         try {
-            await http.post(POSTS_API, { data: postForm });
-            closeRef.current && closeRef.current.click();
+            if (editMode) {
+                await http.put(`${POSTS_API}/${selectedPost.id}`, { data: postForm });
+            } else {
+                await http.post(POSTS_API, { data: postForm });
+            }
+            resetForm();
+            handleCloseModalAndUpdate();
         } catch (err) {
             setCreatePostError(err.message);
             console.log(err.message);
         }
     };
+
+    const prefillValuesOnEdit = () => {
+        editMode && setPostForm(fillPostForm(selectedPost));
+    };
+
+    useEffect(() => {
+        const offcanvas = offcanvasRef.current;
+        offcanvas && offcanvas.addEventListener('show.bs.offcanvas', prefillValuesOnEdit);
+
+        return () => {
+            offcanvas.removeEventListener('show.bs.offcanvas', prefillValuesOnEdit);
+        };
+    }, [offcanvasRef, editMode]);
 
     const resetForm = () => {
         setPostForm(DEFAULT_POST_FORM);
@@ -44,6 +63,7 @@ const usePostFormData = (closeRef) => {
         postFormError,
         resetForm,
         createPostError,
+        editMode,
     };
 };
 

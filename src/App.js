@@ -9,13 +9,21 @@ function App() {
     post,
     handleSelectPost,
     handleGoBack,
+    handleDeletePost,
+    handleToggleOffcanvas,
+    handleCloseModalAndUpdate,
   } = usePostsData();
 
   return (
     <div>
-      <NavBar />
+      <NavBar selectedPost={post} handleCloseModalAndUpdate={handleCloseModalAndUpdate} />
       {post ?
-        <PostFull post={post} handleGoBack={handleGoBack} /> :
+        <PostFull
+          post={post}
+          handleGoBack={handleGoBack}
+          handleDeletePost={handleDeletePost}
+          handleEditPost={handleToggleOffcanvas}
+        /> :
         <PostsList posts={posts} handleClick={handleSelectPost} />}
     </div>
   );

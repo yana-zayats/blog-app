@@ -17,7 +17,7 @@ function Post({
           {cropPostContent(post.content)}
         </p>
         <button 
-          className='btn btn-link link-secondary link-underline link-underline-opacity-0' 
+          className='btn btn-link link-secondary link-underline link-underline-opacity-0 px-0' 
           type='button'
           onClick={() => handleClick(post.id)}
         >
